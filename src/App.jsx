@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Input from './components/Input'
 import useCurrencyInfo from './hooks/useCurrencyInfo'
 import './App.css'
@@ -6,12 +6,12 @@ import backgroundImage from "./assets/background.jpg"
 
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState()
 
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [from, setFrom] = useState('usd');
   const [to, setTo] = useState('npr');
-  const [ConvertAmount, setConvertAmount] = useState(0)
+  const [ConvertAmount, setConvertAmount] = useState()
 
   const currencyInfo = useCurrencyInfo(from);
 
@@ -30,6 +30,11 @@ function App() {
        setConvertAmount( amount * currencyInfo[to]
          )
     }
+
+    useEffect(() =>{
+          convert();
+
+    }, [amount,to,currencyInfo])
 
 
     
